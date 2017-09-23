@@ -1,3 +1,8 @@
+<a name="1.3.5"></a>
+## [1.3.5](https://github.com/valor-software/ng2-dragula/compare/v1.3.2...v1.3.5) (2017-09-23)
+
+
+
 <a name="1.3.4"></a>
 ## [1.3.4](https://github.com/valor-software/ng2-dragula/compare/v1.3.2...v1.3.4) (2017-09-23)
 

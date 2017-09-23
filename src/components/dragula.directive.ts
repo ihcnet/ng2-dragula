@@ -1,18 +1,19 @@
-import { Directive, Input, ElementRef, OnInit, AfterViewInit, OnChanges, SimpleChange } from '@angular/core';
-import { DragulaService } from './dragula.provider';
-import { dragula } from './dragula.class';
+import {Directive, Input, ElementRef, OnInit, AfterViewInit, OnChanges, SimpleChange} from '@angular/core';
+import {DragulaService} from './dragula.provider';
+import {dragula} from './dragula.class';
 
 @Directive({selector: '[dragula]'})
 export class DragulaDirective implements OnInit, OnChanges, AfterViewInit {
   @Input() public dragula: string;
   @Input() public dragulaModel: any;
   @Input() public dragulaOptions: any;
-  protected container: any; //allows for extension
+  protected container: any; // allows for extension
   private drake: any;
   private options: any;
 
   private el: ElementRef;
   private dragulaService: DragulaService;
+
   public constructor(el: ElementRef, dragulaService: DragulaService) {
     this.el = el;
     this.dragulaService = dragulaService;
@@ -21,19 +22,19 @@ export class DragulaDirective implements OnInit, OnChanges, AfterViewInit {
 
   public ngOnInit(): void {
     this.options = Object.assign({}, this.dragulaOptions);
-    this.container = this.el.nativeElement;        
-    if(!this.options.initAfterView){
-      this.initialize();
-    }    
-  }
-
-  ngAfterViewInit() {
-    if(this.options.initAfterView){      
+    this.container = this.el.nativeElement;
+    if (!this.options.initAfterView) {
       this.initialize();
     }
   }
 
-  public ngOnChanges(changes: {dragulaModel?: SimpleChange}): void {
+  public ngAfterViewInit(): void {
+    if (this.options.initAfterView) {
+      this.initialize();
+    }
+  }
+
+  public ngOnChanges(changes: { dragulaModel?: SimpleChange }): void {
     if (changes && changes.dragulaModel) {
       if (this.drake) {
         if (this.drake.models) {
@@ -46,12 +47,12 @@ export class DragulaDirective implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  protected initialize(){    
-    if(this.options.childContainerSelector){
-        this.container = this.el.nativeElement.querySelector(this.options.childContainerSelector);
-        this.options.mirrorContainer = this.container;
-      }
-      
+  protected initialize(): void {
+    if (this.options.childContainerSelector) {
+      this.container = this.el.nativeElement.querySelector(this.options.childContainerSelector);
+      this.options.mirrorContainer = this.container;
+    }
+
     let bag = this.dragulaService.find(this.dragula);
     let checkModel = () => {
       if (this.dragulaModel) {
